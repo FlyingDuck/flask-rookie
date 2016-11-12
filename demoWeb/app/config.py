@@ -20,7 +20,8 @@ class DevConfig(BaseConfig):
 
     @staticmethod
     def init_app(app):
-        from flask.ext.pymongo import PyMongo
+        # from flask.ext.pymongo import PyMongo
+        from flask_pymongo import PyMongo
         app = PyMongo(app)
         return app
 
