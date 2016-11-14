@@ -1,10 +1,25 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
-from config import config
 from flask_pymongo import PyMongo
 # from flask.ext.pymongo import PyMongo
+from flask_login import LoginManager
+
+from app.config import config
+from app.models import User
+from util import bson_obj_id
 
 mongo = PyMongo()
+login_manager = LoginManager()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    user = None
+    db_user = mongo.db.users.find_one({'id': bson_obj_id(user_id)})
+    if db_user is not None:
+        user_id = db_user.pop('_id')
+        user = User(user_id, extras=db_user)
+    return user
 
 def create_app(config_name='dev'):
     app = Flask(__name__)
@@ -16,10 +31,18 @@ def create_app(config_name='dev'):
     # 初始化MongoDB
     mongo.init_app(app)
 
-    from main import main as main_blueprint
+    # 初始化Flask-Login
+    login_manager.init_app(app)
+    login_manager.login_view = 'users.login'
+    login_manager.login_message = u'请登陆'
+
+    from app.main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    from api import api as api_buleprint
+    from app.users import users as users_blueprint
+    app.register_blueprint(users_blueprint)
+
+    from app.api import api as api_buleprint
     app.register_blueprint(api_buleprint)
 
     return app

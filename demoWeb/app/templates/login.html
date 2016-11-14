@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+</head>
+<body>
+
+{% with messages = get_flashed_messages(with_categories=ture) %}
+    {% if messages %}
+        {% for message in messages %}
+            <li>{{message}}</li>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div>
+    还没有账号? 去<a href="{{ url_for('users.register') }}">注册</a>
+</div>
+
+<p></p>
+
+<form action="{{url_for('users.login')}}" method="post">
+    {{ form.csrf_token }}
+    {{ form.email.label }}: {{ form.email() }}
+    {{ form.password.label }}: {{ form.password() }}
+    {{form.submit()}}
+</form>
+
+</body>
+</html>

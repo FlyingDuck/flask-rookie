@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # from flask.ext.wtf import Form
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from flask_wtf import FlaskForm, RecaptchaField
+# from flask_wtf.html5 import EmailField
+from wtforms.fields.html5 import EmailField
+from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 
 
@@ -12,4 +14,17 @@ class PkForm(FlaskForm) :
     pk1 = StringField(validators=[DataRequired()])
     pk2 = StringField(validators=[DataRequired()])
     submit = SubmitField(label=u'pk一下')
+
+
+class LoginForm(FlaskForm):
+    email = EmailField(label=u'邮箱', validators=[DataRequired()])
+    password = PasswordField(label=u'密码', validators=[DataRequired()])
+    submit = SubmitField(label=u"登陆")
+
+class RegisterForm(FlaskForm):
+    email = EmailField(u'邮箱', validators=[DataRequired()])
+    username = StringField(label=u'用户名', validators=[DataRequired()])
+    password = PasswordField(label=u'密码', validators=[DataRequired()])
+    repeat = PasswordField(label=u'确认密码', validators=[DataRequired()])
+    submit = SubmitField(label=u'注册')
 
