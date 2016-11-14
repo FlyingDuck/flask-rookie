@@ -11,6 +11,7 @@ from . import users
 @users.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
+    lg_form = LoginForm()
     if form.validate_on_submit():
         email = form.email.data
         username = form.username.data
@@ -24,7 +25,7 @@ def register():
             mongo.db.users.insert({'email': email, 'username': username, 'password': User.gen_passwd_hash(passwd)})
             flash(u'注册成功', 'SUCCESS')
             return redirect(url_for('.login'))
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, lg_form=lg_form)
 
 
 @users.route('/login', methods=['GET', 'POST'])
