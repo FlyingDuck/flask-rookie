@@ -10,9 +10,9 @@ from . import main
 
 @main.route('/')
 def index():
-    pk_form = PkForm()
     lg_form = LoginForm()
-    return render_template("index.html", form=pk_form, lg_form=lg_form)
+    return render_template('index.html', lg_form=lg_form, title=u'首页')
+
 
 @main.route('/pk', methods=['POST', 'GET'])
 def pk():
