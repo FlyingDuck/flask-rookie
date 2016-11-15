@@ -21,6 +21,32 @@ def index():
 
 pk_regx = re.compile(r'(\w+)\s+(pk|Pk|pK|PK)\s+(\w+)', re.IGNORECASE)
 
+
+@main.route('/explore')
+def explore():
+    items = Item.find_items()
+    return render_template('explore.html', items=items, title=u'发现')
+
+@main.route('/lucky')
+def lucky():
+    # 总条数
+    item = Item.get_random_item()
+    if item:
+        return redirect(url_for('.item', title=item['title']))
+    return redirect(url_for('.index'))
+
+@main.route('/search')
+def search():
+    q = request.args.get('q', None)
+    if q is None:
+        abort(404)
+    keyword = q.strip()
+    regx = re.compile(r'%s' %keyword, re.IGNORECASE)
+    list = Item.find_items(regx)
+    if list.count() == 0:
+        flash(u'没有找到结果', 'search')
+    return render_template('explore.html', items=list, title=u'搜索')
+
 @main.route('/pk', methods=['GET', 'POST'])
 def pk():
     if request.method == 'POST':
