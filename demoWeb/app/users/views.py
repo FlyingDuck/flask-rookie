@@ -95,6 +95,7 @@ def profile(id=None):
         user = User.find_by_id(bson_obj_id(id))
     return render_template('profile.html', user=user)
 
+
 @users.route('/profile/edit', methods=['GET','POST'])
 @login_required
 def profile_edit():
