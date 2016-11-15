@@ -11,8 +11,6 @@ demoWeb/app/static/components/jquery/bower.json
 demoWeb/app/static/components/jquery/LICENSE.txt
 demoWeb/app/static/components/jquery/README.md
 
-
-
 demoWeb/app/static/components/semantic/.bower.json
 demoWeb/app/static/components/semantic/.csscomb.json
 demoWeb/app/static/components/semantic/.csslintrc
@@ -32,3 +30,5 @@ demoWeb/app/static/components/semantic/package.json
 demoWeb/app/static/components/semantic/semantic.json.example
 demoWeb/app/static/components/semantic/src/
 demoWeb/app/static/components/semantic/tasks/
+
+BACKUP
