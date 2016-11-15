@@ -11,7 +11,9 @@ class BaseConfig:
     MAIL_PORT = 25
     MAIL_USE_TLS = False
     MAIL_USE_SSL = False
-
+    MAIL_USERNAME = 'dongshujin@xiaoqianghome.com'  # os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = 'dsj911@xqmail'  # os.environ.get('MAIL_PASSWORD')
+    MAIL_DEFAULT_SENDER = 'dongshujin@xiaoqianghome.com'
 
     @staticmethod
     def init_app(app):
