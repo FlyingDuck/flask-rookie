@@ -7,7 +7,7 @@ from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, Regexp
 
 
-_required_text = '该字段为必填项'
+_required_text = u'该字段为必填项'
 
 validators = {
     'email': [
@@ -15,11 +15,11 @@ validators = {
     ],
     'username': [
         DataRequired(message=_required_text),
-        Length(min=2, max=18, message='用户名长度为2到18位')
+        Length(min=2, max=18, message=u'用户名长度为2到18位')
     ],
     'password': [
         DataRequired(message=_required_text),
-        Regexp(regex=r'^[A-Za-z0-9@#$%^&+=_-]{6,18}$',message='密码格式错误')
+        Regexp(regex=r'^[A-Za-z0-9@#$%^&+=_-]{6,18}$',message=u'密码格式错误')
     ]
 }
 
@@ -39,11 +39,10 @@ class LoginForm(FlaskForm):
     submit = SubmitField(label=u"登陆")
 
 class RegisterForm(FlaskForm):
-    email = EmailField(u'邮箱', validators=[DataRequired()])
-    username = StringField(label=u'用户名', validators=[DataRequired()])
-    password = PasswordField(label=u'密码', validators=[DataRequired()])
-    repeat = PasswordField(label=u'确认密码', validators=[DataRequired()])
-    submit = SubmitField(label=u'注册')
+    email = EmailField(u'邮箱', validators=validators['email'])
+    username = StringField(u'用户名', validators=validators['username'])
+    password = PasswordField(u'密码', validators=validators['password'])
+    repeat = PasswordField(u'重复密码', validators=validators['password'])
 
 
 class BaseEntryForm(FlaskForm):

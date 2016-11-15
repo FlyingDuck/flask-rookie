@@ -89,6 +89,7 @@ class User(UserMixin):
             'password': cls.gen_passwd_hash(password),
             'avatar': '',
             'active': False,
+            # 'active': True,
             'join': datetime.utcnow(),
             'create_count': 0,
             'edit_count': 0
