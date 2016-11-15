@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask.ext.pymongo import PyMongo
-from flask.ext.login import LoginManager
+# from flask.ext.pymongo import PyMongo
+# from flask.ext.login import LoginManager
 # from flask.ext.mail import Mail
 # from flask.ext.celery import Celery
 # from flask.ext.admin import Admin

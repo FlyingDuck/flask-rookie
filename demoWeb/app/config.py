@@ -7,12 +7,12 @@ class BaseConfig:
     SECRET_KEY = '693bda65112eb4b1eab2bfe3fa8e672ad220fa7c'
     UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
     MAIL_SUBJECT_PREFIX = '[PKYX]'
-    MAIL_SERVER = 'smtp.mxhichina.com'
+    MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = 25
     MAIL_USE_TLS = False
     MAIL_USE_SSL = False
-    MAIL_USERNAME = 'dongshujin@xiaoqianghome.com'  # os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = 'dsj911@xqmail'  # os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     MAIL_DEFAULT_SENDER = 'dongshujin@xiaoqianghome.com'
 
     @staticmethod
