@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from app import mongo
-from app.models import User
-
 from flask import g, jsonify
 from flask_httpauth import HTTPBasicAuth
+
+from app.extensions import mongo
+from app.models import User
+
 
 from . import api
 

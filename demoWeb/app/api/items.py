@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from app import mongo
-from util import bson_to_json, bson_obj_id
 from flask import request
 from flask.views import MethodView
+
+
+from app.extensions import mongo
+from util import bson_to_json, bson_obj_id
 
 from . import *
 
