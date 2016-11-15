@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import render_template, request, Response, flash, redirect, url_for, abort
+from flask import render_template, request, Response, flash, redirect, url_for, abort, jsonify
 from flask_login import current_user, login_required
 
 from app.forms import PkForm, LoginForm, BaseEntryForm
@@ -64,6 +64,61 @@ def item(title):
         abort(404)
     Item.inc_view(title)
     return render_template('item.html', item=item, TypeRender=TypeRender)
+
+
+@main.route('/item/edit_attr', methods=['POST'])
+def edit_attr():
+    if request.method == 'POST':
+        title = request.json['title']
+        attr_name = request.json['attr_name'].strip()
+        attr_type = request.json['attr_type']
+        attr_value = request.json['attr_value'].strip()
+        if not attr_name:
+            return jsonify(status=False, reason=u"属性名不能为空")
+        if not attr_value:
+            return jsonify(status=False, reason=u"属性值不能为空")
+        status = Item.edit_attr(title, attr_name, attr_value, attr_type)
+        if status:
+            if current_user.is_authenticated:
+                current_user.add_edit()
+            return jsonify(status=True, reason=u"修改属性成功")
+        else:
+            return jsonify(status=True, reason=u"修改失败")
+
+@main.route('/item/del_attr', methods=['POST'])
+@login_required
+def del_attr():
+    if request.method == 'POST':
+        title = request.json['title']
+        attr_name = request.json['attr_name']
+        status = Item.del_attr(title, attr_name)
+        if status:
+            return jsonify(status=True, reason=u"删除属性成功")
+        else:
+            return jsonify(status=True, reason=u"删除失败")
+
+@main.route('/item/add_attr', methods=['POST'])
+def add_attr():
+    if request.method == 'POST':
+        title = request.json['title']
+        attr_name = request.json['attr_name'].strip()
+        attr_type = request.json['attr_type']
+        attr_value = request.json['attr_value'].strip()
+        if not attr_name:
+            return jsonify(status=False, reason=u"属性名不能为空")
+        if not attr_value:
+            return jsonify(status=False, reason=u"属性值不能为空")
+        if Item.find_attr(title, attr_name) is not None:
+            return jsonify(status=False, reason=u"属性已存在")
+        status = Item.add_attr(title, attr_name, attr_value, attr_type)
+        if status:
+            if current_user.is_authenticated:
+                current_user.add_edit()
+        html = TypeRender.render_html(attr_name, attr_value, attr_type)
+        return jsonify(status=True, reason=u"添加属性成功", html=html)
+
+
+
 
 @main.route('/create_entry', methods=['GET', 'POST'])
 def create_entry():

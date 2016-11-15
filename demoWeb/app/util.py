@@ -48,8 +48,7 @@ class TypeRender:
                 attr_content = u'否'
         else:
             attr_content = cls._type[type].format(v=value)
-        content = cls._content.format(attr_cls=cls._class_of_type(value, type),\
-                                      attr_content=attr_content)
+        content = cls._content.format(attr_cls=cls._class_of_type(value, type), attr_content=attr_content)
         return content
 
     @classmethod
