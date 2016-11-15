@@ -1,19 +1,10 @@
 # -*- coding: utf-8 -*-
-# from flask import Flask
-# from flask.ext.login import current_user
-# from flask_admin.contrib.fileadmin import FileAdmin
-# from app.config import config
-# from app.extensions import admin, mongo, mail, login_manager, celery
-# from app.models import User
-# from app.util import bson_obj_id
-
-
 from flask import Flask
 from flask_login import current_user
 # from flask_admin.contrib.fileadmin import FileAdmin
 
 from app.config import config
-from app.extensions import mongo, login_manager#, admin, mail, , celery
+from app.extensions import mongo, login_manager, mail, celery#, admin
 from app.models import User
 from app.util import bson_obj_id
 
@@ -43,14 +34,14 @@ def create_app(config_name='dev'):
     with app.app_context():
         mongo.db['items'].create_index('title', background=True)
     # 初始化Celery
-    # celery.init_app(app)
+    celery.init_app(app)
 
     # 初始化Flask-mail
-    # mail.init_app(app)
+    mail.init_app(app)
 
     # 初始化Flask-Login
     login_manager.init_app(app)
-    login_manager.login_view = 'main.register'
+    login_manager.login_view = 'main.index'
     login_manager.login_message = u'请先登录或注册'
 
     @login_manager.user_loader

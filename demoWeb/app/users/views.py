@@ -6,7 +6,7 @@ from flask_mail import Message
 from werkzeug.utils import secure_filename
 from gridfs import GridFS, NoFile
 
-from app.extensions import mongo
+from app.extensions import mongo, mail
 from app.forms import RegisterForm, LoginForm, ProfileForm
 from app.models import User
 from app.util import bson_obj_id, bson_to_json, AllowFile
@@ -17,10 +17,10 @@ from . import users
 
 def send_email(to, subject, template, **kwargs):
     from app import app
-    msg = Message(app.config['MAIL_SUBJECT_PREFIX'] + subject,
-        sender= app.config['MAIL_DEFAULT_SENDER'], recipients=[to])
+    msg = Message(app.config['MAIL_SUBJECT_PREFIX'] + subject, sender= app.config['MAIL_DEFAULT_SENDER'], recipients=[to])
     msg.html = render_template(template + '.html', **kwargs)
-    send_async_email.delay(msg)
+    # send_async_email.delay(msg)
+    mail.send(msg)
 
 
 @users.route('/confirm/<token>')
