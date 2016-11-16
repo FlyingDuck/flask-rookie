@@ -32,3 +32,6 @@ demoWeb/app/static/components/semantic/src/
 demoWeb/app/static/components/semantic/tasks/
 
 BACKUP
+
+log/celery/*
+log/supervisord/*

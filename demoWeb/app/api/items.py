@@ -4,7 +4,7 @@ from flask.views import MethodView
 
 
 from app.extensions import mongo
-from util import bson_to_json, bson_obj_id
+from app.util import bson_to_json, bson_obj_id
 
 from . import *
 
