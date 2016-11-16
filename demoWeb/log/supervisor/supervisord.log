@@ -1,8 +1,0 @@
-2016-11-16 16:46:12,110 INFO Increased RLIMIT_NOFILE limit to 1024
-2016-11-16 16:46:12,113 INFO daemonizing the supervisord process
-2016-11-16 16:46:12,114 INFO supervisord started with pid 39710
-2016-11-16 16:46:13,116 INFO spawned: 'pkyx' with pid 39711
-2016-11-16 16:46:14,406 INFO success: pkyx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
-2016-11-16 16:59:00,248 WARN received SIGTERM indicating exit request
-2016-11-16 16:59:00,249 INFO waiting for pkyx to die
-2016-11-16 16:59:00,690 INFO stopped: pkyx (exit status 0)
