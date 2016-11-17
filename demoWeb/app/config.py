@@ -24,7 +24,7 @@ class DevConfig(BaseConfig):
     MONGO_PORT = 27017
     MONGO_DBNAME = 'tutorial'
     CELERY_IMPORTS = (
-        "app.tasks.mail",
+        "app.task.mail",
     )
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
