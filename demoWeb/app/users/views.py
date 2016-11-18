@@ -17,11 +17,14 @@ from . import users
 
 def send_email(to, subject, template, **kwargs):
     from app import app
-    msg = Message(app.config['MAIL_SUBJECT_PREFIX'] + subject, sender= app.config['MAIL_DEFAULT_SENDER'], recipients=[to])
-    msg.html = render_template(template + '.html', **kwargs)
-    # todo 异步发送激活邮件
-    # send_async_email.delay(msg)
-    mail.send(msg)
+    # msg = Message(app.config['MAIL_SUBJECT_PREFIX'] + subject, sender= app.config['MAIL_DEFAULT_SENDER'], recipients=[to])
+    # msg.html = render_template(template + '.html', **kwargs)
+    subject = app.config['MAIL_SUBJECT_PREFIX'] + subject
+    sender = app.config['MAIL_DEFAULT_SENDER']
+    recipients = [to]
+    html = render_template(template + '.html', **kwargs)
+    send_async_email.delay(subject, sender, recipients, html)
+    # mail.send(msg)
 
 
 @users.route('/confirm/<token>')
